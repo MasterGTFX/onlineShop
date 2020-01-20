@@ -22,7 +22,8 @@ def index_category(request, **kwargs):
     categories_id = [category.id for category in categories]
     if kwargs.get('category') in categories_id:
         products = [product for product in products if product.category.id == kwargs.get('category')]
-    return render(request, "index.html", {'categories': categories, 'products': products, 'home_active': 'active'})
+    return render(request, "index.html", {'categories': categories, 'products': products, 'home_active': 'active',
+                                          "active_category": kwargs.get('category')})
 
 
 def profile(request):
