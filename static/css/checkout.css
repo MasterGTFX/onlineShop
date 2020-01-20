@@ -3,9 +3,6 @@
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
  */
-body {
-  padding-top: 56px;
-}
 footer {
     width:100%;
     height:30px;
@@ -13,9 +10,29 @@ footer {
     left: 0;
     bottom: 0;
 }
-.row {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+html,
+body {
+  padding-top: 56px;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
 }
+.col-25 {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+}
+span.price {
+  float: right;
+  color: grey;
+}
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+}
+

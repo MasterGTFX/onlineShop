@@ -7,6 +7,12 @@
 
 {% block content %}
  <!-- Page Content -->
+  {% if error_message %}
+     <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      {{ error_message }}
+    </div>
+  {% endif %}
   <div class="container">
     <div class="row">
       <div class="col-lg-3">
@@ -32,6 +38,11 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
           </ol>
           <div class="carousel-inner" role="listbox">
+            {% if products %}
+              {% for product in products %}
+                
+              {% endfor %}
+            {% endif %}
             <div class="carousel-item active">
               <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
             </div>
@@ -62,9 +73,13 @@
                     <h4 class="card-title">
                       <a href="#">{{ product.name }}</a>
                     </h4>
-                    <h5>${{ product.price }}</h5>
+                    <h6>${{ product.price }} , {{ product.quantity }} in stock</h6>
                     <p class="card-text">{{ product.description }}</p>
-                    <button type="submit" class="btn btn-primary btn-sm"> ADD TO CART </button>
+                    {% if user.is_authenticated %}
+                      <a href="/add_to_cart/{{ product.id }}/1">
+                        <button type="submit" class="btn btn-primary btn-sm"> ADD TO CART </button>
+                      </a>
+                    {% endif %}
                   </div>
                   <div class="card-footer">
                     <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>

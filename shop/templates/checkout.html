@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/checkout.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="col-25">
+        <div class="container">
+          <h4>Cart
+            <span class="price" style="color:black">
+              <i class="fa fa-shopping-cart"></i>
+              <b>{{ user.profile.shopping_cart.count }}</b>
+            </span>
+          </h4>
+          {% for product_in_cart in user.profile.shopping_cart.all %}
+            <p><a href="#">{{ product_in_cart.product.name }} (x{{ product_in_cart.product_count }})</a> <span class="price">{{ product_in_cart.product.price }}$</span></p>
+          {% endfor %}
+          <hr>
+          <p>Total <span class="price" style="color:black"><b>${{ user.profile.shopping_cart_price }}</b></span></p>
+        </div>
+    </div>
+      <!-- Products -->
+
+    <h4>BUY</h4>
+
+{% endblock %}
