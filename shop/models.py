@@ -25,6 +25,7 @@ class Product(models.Model):
     price = models.FloatField()
     quantity = models.IntegerField()
     description = models.TextField(blank=True)
+    description_long = models.TextField(blank=True)
     add_date = models.DateField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to=get_image_path, blank=True, null=True, default="images/default.png")

@@ -12,8 +12,11 @@ def register(response):
             username = response.POST['username']
             password = response.POST['password1']
             user = authenticate(username=username, password=password)
-            login(response, user)
-        return redirect("/")
+            if user is not None:
+                login(response, user)
+                return redirect("/")
+            else:
+                return render(response, "register.html", {"form": form, 'login_active': 'active'})
     else:
         form = RegisterForm()
     return render(response, "register.html", {"form": form, 'login_active': 'active'})

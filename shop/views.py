@@ -30,6 +30,11 @@ def profile(request):
     return render(request, "profile.html", {})
 
 
+def product(request, **kwargs):
+    product = Product.objects.get(id=kwargs.get('id'))
+    return render(request, "profile.html", {'product': product})
+
+
 def checkout(request):
     total_price = 0
     for product_in_cart in request.user.profile.shopping_cart.all():

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/homepage.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    {% else %}
+        <meta http-equiv="Refresh" content="0; url=login/"/>
+    {% endif %}
+{% endblock %}
