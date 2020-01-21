@@ -6,23 +6,33 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="col-25">
         <div class="container">
-          <h4>Cart
-            <span class="price" style="color:black">
+            {% if error_message %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error_message }}
+                </div>
+            {% endif %}
+            <h2>Cart
+                <span class="price" style="color:black">
               <i class="fa fa-shopping-cart"></i>
               <b>{{ user.profile.shopping_cart.count }}</b>
             </span>
-          </h4>
-          {% for product_in_cart in user.profile.shopping_cart.all %}
-            <p><a href="#">{{ product_in_cart.product.name }} (x{{ product_in_cart.product_count }})</a> <span class="price">{{ product_in_cart.product.price }}$</span></p>
-          {% endfor %}
-          <hr>
-          <p>Total <span class="price" style="color:black"><b>${{ user.profile.shopping_cart_price }}</b></span></p>
+            </h2>
+            {% for product_in_cart in user.profile.shopping_cart.all %}
+                <p><a href="/remove/{{ product_in_cart.product.id }}" class="btn btn-danger btn-sm">
+                    X </a><b>&ensp;{{ product_in_cart.product.name }}&ensp;</b>(x{{ product_in_cart.product_count }})<span
+                        class="price">{{ product_in_cart.product.price }}$</span></p>
+            {% endfor %}
+            <hr>
+            <h4><b>Total</b> <span class="price" style="color:black"><b>${{ total_price }}</b></span></h4>
+            <a href="/buy" class="btn btn-success"> BUY </a>
+            <a href="/remove/all" class="btn btn-dark"> CLEAR </a>
         </div>
     </div>
-      <!-- Products -->
+    <!-- Products -->
 
-    <h4>BUY</h4>
+
 
 {% endblock %}

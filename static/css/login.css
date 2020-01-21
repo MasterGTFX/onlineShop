@@ -21,21 +21,10 @@ body {
   background-size: cover;
   -o-background-size: cover;
 }
-.col-25 {
-  -ms-flex: 25%; /* IE10 */
-  flex: 25%;
 
+.row {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-span.price {
-  float: right;
-  color: gray;
-}
-@media (max-width: 800px) {
-  .row {
-    flex-direction: column-reverse;
-  }
-  .col-25 {
-    margin-bottom: 20px;
-  }
-}
-

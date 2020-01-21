@@ -12,13 +12,6 @@ class Profile(models.Model):
     balance = models.PositiveIntegerField(default=0)
     shopping_cart = models.ManyToManyField(ProductInCart, blank=True)
 
-    @property
-    def shopping_cart_price(self):
-        cart_sum = 0
-        for product_in_cart in self.shopping_cart:
-            cart_sum += product_in_cart.product.price * product_in_cart.product_count
-        return cart_sum
-
     def __str__(self):
         return "{}".format(self.user)
 

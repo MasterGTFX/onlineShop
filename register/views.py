@@ -3,7 +3,6 @@ from .forms import RegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 
-
 # Create your views here.
 def register(response):
     if response.method == "POST":
@@ -18,6 +17,7 @@ def register(response):
     else:
         form = RegisterForm()
     return render(response, "register.html", {"form": form, 'login_active': 'active'})
+
 
 
 

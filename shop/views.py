@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Product, Category, ProductInCart
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum
+
 
 # Create your views here.
 def index(request, **kwargs):
@@ -27,26 +27,94 @@ def index_category(request, **kwargs):
 
 
 def profile(request):
-    products = Product.objects.all()
     return render(request, "profile.html", {})
 
 
 def checkout(request):
-    products = Product.objects.all()
-    return render(request, "checkout.html", {})
+    total_price = 0
+    for product_in_cart in request.user.profile.shopping_cart.all():
+        total_price += product_in_cart.product.price * product_in_cart.product_count
+    return render(request, "checkout.html", {'total_price': total_price})
+
+
+def check_quantity(request, product, product_in_cart):
+    if product.quantity < product_in_cart.product_count:
+        return False
+    return True
 
 
 @login_required(login_url='/login/')
 def add_to_cart(request, **kwargs):
+    categories = Category.objects.all()
+    products = Product.objects.all()
     user_profile = request.user.profile
-
     product = Product.objects.get(id=kwargs.get('id'))
-    if product.quantity < kwargs.get('quantity'):
-        message = "We dont have {} {} in stock".format(kwargs.get('quantity'), product.name)
-        return redirect(index, error_message=message)
+    for product_in_cart in user_profile.shopping_cart.all():
+        if product_in_cart.product == product:
+            product_in_cart.product_count += kwargs.get('quantity')
+            if not check_quantity(request, product, product_in_cart):
+                message = "We dont have {} of {} in stock!".format(product_in_cart.product_count, product.name)
+                return render(request, "index.html",
+                              {'categories': categories, 'products': products, 'categories_all_active': 'active',
+                               'home_active': 'active', 'error_message': message})
+            product_in_cart.save()
+            user_profile.save()
+            message = "Succesfully added {} of {} to cart :)".format(product_in_cart.product_count, product.name)
+            return render(request, "index.html",
+                          {'categories': categories, 'products': products, 'categories_all_active': 'active',
+                           'home_active': 'active', 'info_message': message})
     product_in_cart = ProductInCart(product=product, product_count=kwargs.get('quantity'))
+    if not check_quantity(request, product, product_in_cart):
+        message = "We dont have {} of {} in stock!".format(product_in_cart.product_count, product.name)
+        return render(request, "index.html",
+                      {'categories': categories, 'products': products, 'categories_all_active': 'active',
+                       'home_active': 'active', 'error_message': message})
     product_in_cart.save()
     user_profile.shopping_cart.add(product_in_cart)
     user_profile.save()
-    #user_profile.shopping_cart.clear()
-    return redirect(index)
+    message = "Succesfully added {} of {} to cart :)".format(product_in_cart.product_count, product.name)
+    return render(request, "index.html",
+                  {'categories': categories, 'products': products, 'categories_all_active': 'active',
+                   'home_active': 'active', 'info_message': message})
+
+
+@login_required(login_url='/login/')
+def remove_all(request, **kwargs):
+    request.user.profile.shopping_cart.clear()
+    return redirect(checkout)
+
+
+@login_required(login_url='/login/')
+def remove(request, **kwargs):
+    product = Product.objects.get(id=kwargs.get('id'))
+    for product_in_cart in request.user.profile.shopping_cart.all():
+        if product_in_cart.product == product:
+            product_in_cart_to_remove = product_in_cart
+    if product_in_cart_to_remove:
+        request.user.profile.shopping_cart.remove(product_in_cart_to_remove)
+    return redirect(checkout)
+
+
+@login_required(login_url='/login/')
+def buy(request, **kwargs):
+    total_price = 0
+    for product_in_cart in request.user.profile.shopping_cart.all():
+        total_price += product_in_cart.product.price * product_in_cart.product_count
+    if request.user.profile.balance < total_price:
+        message = "You dont have enough money! Your balance is {}. You can add funds at your profile".format(
+            request.user.profile.balance)
+        return render(request, "checkout.html", {'error_message': message})
+    else:
+        categories = Category.objects.all()
+        products = Product.objects.all()
+        request.user.profile.balance -= total_price
+        request.user.profile.save()
+        for product_in_cart in request.user.profile.shopping_cart.all():
+            product = Product.objects.get(id=product_in_cart.product.id)
+            product.quantity -= product_in_cart.product_count
+            product.save()
+        request.user.profile.shopping_cart.clear()
+        message = "Thanks for shopping"
+        return render(request, "index.html",
+                      {'categories': categories, 'products': products, 'categories_all_active': 'active',
+                       'home_active': 'active', 'info_message': message})
