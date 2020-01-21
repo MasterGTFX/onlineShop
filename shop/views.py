@@ -32,7 +32,7 @@ def profile(request):
 
 def product(request, **kwargs):
     product = Product.objects.get(id=kwargs.get('id'))
-    return render(request, "profile.html", {'product': product})
+    return render(request, "product.html", {'product': product})
 
 
 def checkout(request):
