@@ -76,9 +76,10 @@ WSGI_APPLICATION = 'onlineShop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'localhost',
+        'NAME': 'eenestsf',
+        'USER': 'eenestsf',
+        'PASSWORD': '52X3KbOpXUzdpbZWY_qMa9CH7e80TS4J',
+        'HOST': 'manny.db.elephantsql.com',
     }
 }
 
