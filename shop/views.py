@@ -27,7 +27,11 @@ def index_category(request, **kwargs):
 
 
 def profile(request):
-    return render(request, "profile.html", {})
+    return render(request, "profile.html", {'profile_active': 'active'})
+
+
+def about(request):
+    return render(request, "about.html", {'about_active': 'active'})
 
 
 def product(request, **kwargs):
@@ -81,6 +85,32 @@ def add_to_cart(request, **kwargs):
     return render(request, "index.html",
                   {'categories': categories, 'products': products, 'categories_all_active': 'active',
                    'home_active': 'active', 'info_message': message})
+
+
+@login_required(login_url='/login/')
+def add_balance(request, **kwargs):
+    request.user.profile.balance += kwargs.get('amount')
+    request.user.profile.save()
+    categories = Category.objects.all()
+    products = Product.objects.all()
+    message = "Succesfully added {} to balance :)".format(kwargs.get('amount'))
+    return render(request, "index.html",
+                  {'categories': categories, 'products': products, 'categories_all_active': 'active',
+                   'home_active': 'active', 'info_message': message})
+
+
+@login_required(login_url='/login/')
+def remove_account(request, **kwargs):
+    request.user.profile.delete()
+    request.user.profile.save()
+    request.user.delete()
+    request.user.save()
+    categories = Category.objects.all()
+    products = Product.objects.all()
+    error_message = "Your account has been removed! :("
+    return render(request, "index.html",
+                  {'categories': categories, 'products': products, 'categories_all_active': 'active',
+                   'home_active': 'active', 'error_massage': error_message})
 
 
 @login_required(login_url='/login/')

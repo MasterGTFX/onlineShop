@@ -7,29 +7,30 @@
 
 {% block content %}
     <div class="card text-center">
-      <div class="card-header">
-         {{ product.price }}$ / {{ product.quantity }} in stock
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
-                                              <a href="#"><img class="card-img-top img-fluid" src="/media/{{ product.image }}"
-                                                     onerror="this.onerror=null; this.src='http://placehold.it/700x400'"
-                                                     alt=""></a>
-        <p class="card-text">{{ product.description_long }}</p>
-                                            {% if user.is_authenticated %}
-                                        <div class="input-group">
-                                            <input type="number" id="{{ product.id }}" class="form-control" value="1">
-                                            <span class="input-group-btn">
-                                               <button type="submit" onclick="addItem({{ product.id }})" class="btn btn-primary"> ADD TO CART </button>
+        <div class="card-header">
+            {{ product.price }}$ / {{ product.quantity }} in stock
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <a href="#"><img class="card-img-top img-fluid" src="/media/{{ product.image }}"
+                             onerror="this.onerror=null; this.src='http://placehold.it/700x400'"
+                             alt=""></a>
+            <p class="card-text">{{ product.description_long }}</p>
+            {% if user.is_authenticated %}
+                <div class="input-group">
+                    <input type="number" id="{{ product.id }}" class="form-control" value="1">
+                    <span class="input-group-btn">
+                                               <button type="submit" onclick="addItem({{ product.id }})"
+                                                       class="btn btn-primary"> ADD TO CART </button>
                                            </span>
-                                        </div>
-                                    {% endif %}
-      </div>
-      <div class="card-footer text-muted">
-       {{ product.add_date }}
-      </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="card-footer text-muted">
+            {{ product.add_date }}
+        </div>
     </div>
-        <script>
+    <script>
         function addItem(id) {
             window.location.replace("/add_to_cart/" + id + "/" + document.getElementById(id).value);
         }

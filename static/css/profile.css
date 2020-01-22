@@ -1,0 +1,27 @@
+/*!
+ * Start Bootstrap - Shop Homepage (https://startbootstrap.com/template-overviews/shop-homepage)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
+ */
+body, html {
+    padding-top: 56px;
+    height: 100%;
+    background: url('https://www.itl.cat/pngfile/big/157-1572191_hd-wallpapers-for-website-background-cool-background-image.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    margin-top: 20px;
+}
+
+footer {
+    width: 100%;
+    height: 30px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+
+
+

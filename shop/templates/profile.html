@@ -2,12 +2,66 @@
 {% load static %}
 
 {% block css %}
-    <link href="{% static 'css/homepage.css' %}" rel="stylesheet">
+    <link href="{% static 'css/profile.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
     {% if user.is_authenticated %}
+        <div class="container">
+
+            <div class="column">
+            </div>
+            <h4 class="mb-3">Your balance: {{ user.profile.balance }} PLN</h4>
+            <span class="input-group-btn">
+                <button type="submit" onclick="changePassword()"
+                        class="btn btn-warning"> Change password </button>
+            </span>
+            <span class="input-group-btn">
+                <button type="submit" onclick="removeAccount()"
+                        class="btn btn-danger"> Remove account </button>
+            </span>
+
+            <div class="row">
+                <div class="col-md-12 mb-1">
+                    <label for="cc-number">Credit card number</label>
+                    <input type="text" class="form-control" id="cc-number" placeholder=""
+                           value="1234 1234 1234 1234">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-1">
+                    <label for="cc-expiration">CVV</label>
+                    <input type="text" class="form-control" id="cc-expiration" placeholder="" value="123">
+                </div>
+                <div class="col-md-6 mb-1">
+                    <label for="cc-expiration">Amount</label>
+                    <input type="text" class="form-control" id="funds" placeholder="" value="1000">
+                </div>
+
+            </div>
+            <div class="column">
+                    <span class="input-group-btn">
+                        <button type="submit" onclick="addMoney()"
+                                class="btn btn-success"> ADD FUNDS </button>
+                    </span>
+            </div>
+        </div>
+
     {% else %}
         <meta http-equiv="Refresh" content="0; url=login/"/>
     {% endif %}
+    <script>
+        function addMoney() {
+            window.location.replace("/add_balance/" + document.getElementById('funds').value);
+        }
+
+        function changePassword() {
+            window.location.replace("/password_change/");
+        }
+
+        function removeAccount() {
+            window.location.replace("/remove_account/");
+        }
+    </script>
 {% endblock %}
