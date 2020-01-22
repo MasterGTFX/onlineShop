@@ -34,6 +34,10 @@ def about(request):
     return render(request, "about.html", {'about_active': 'active'})
 
 
+def contact(request):
+    return render(request, "contact.html", {'contact_active': 'active'})
+
+
 def product(request, **kwargs):
     product = Product.objects.get(id=kwargs.get('id'))
     return render(request, "product.html", {'product': product})

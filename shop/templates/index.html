@@ -22,7 +22,7 @@
             <div class="col-lg-3">
                 <h1 class="my-4">Y-KOM</h1>
                 {% if user.is_authenticated %}
-                    <h4 class="my-4">Your balance: {{ user.profile.balance }}$</h4>
+                    <h5 class="my-4">Your balance: {{ user.profile.balance }} PLN</h5>
                 {% endif %}
                 <div class="list-group">
                     <a href="/categories/all" class="list-group-item {{ categories_all_active }}">All</a>
@@ -86,7 +86,7 @@
                                         <h4 class="card-title">
                                             <a href="/id/{{ product.id }}">{{ product.name }}</a>
                                         </h4>
-                                        <h6>${{ product.price }} , {{ product.quantity }} in stock</h6>
+                                        <h6>{{ product.price }} PLN, {{ product.quantity }} in stock</h6>
                                         <p class="card-text">{{ product.description }}</p>
                                     </div>
                                     {% if user.is_authenticated %}

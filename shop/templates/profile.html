@@ -11,25 +11,26 @@
 
             <div class="column">
             </div>
-            <h4 class="mb-3">Your balance: {{ user.profile.balance }} PLN</h4>
-            <span class="input-group-btn">
+            <h4 class="mb-3 spacing2">Your balance: {{ user.profile.balance }} PLN</h4>
+            <div class="spacing">
+            <span class="input-group-btn spacing">
                 <button type="submit" onclick="changePassword()"
                         class="btn btn-warning"> Change password </button>
             </span>
-            <span class="input-group-btn">
+                <span class="input-group-btn spacing">
                 <button type="submit" onclick="removeAccount()"
                         class="btn btn-danger"> Remove account </button>
             </span>
-
-            <div class="row">
-                <div class="col-md-12 mb-1">
+            </div>
+            <div class="row spacing spacing">
+                <div class="col-md-12 mb-1 ">
                     <label for="cc-number">Credit card number</label>
                     <input type="text" class="form-control" id="cc-number" placeholder=""
                            value="1234 1234 1234 1234">
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row spacing">
                 <div class="col-md-6 mb-1">
                     <label for="cc-expiration">CVV</label>
                     <input type="text" class="form-control" id="cc-expiration" placeholder="" value="123">
@@ -40,7 +41,7 @@
                 </div>
 
             </div>
-            <div class="column">
+            <div class="column spacing">
                     <span class="input-group-btn">
                         <button type="submit" onclick="addMoney()"
                                 class="btn btn-success"> ADD FUNDS </button>

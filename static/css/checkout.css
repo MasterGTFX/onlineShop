@@ -4,8 +4,8 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
  */
 footer {
-    width:100%;
-    height:30px;
+    width: 100%;
+    height: 30px;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -13,29 +13,33 @@ footer {
 
 html,
 body {
-  padding-top: 56px;
-  height: 100%;
-  background: url('https://www.itl.cat/pngfile/big/157-1572191_hd-wallpapers-for-website-background-cool-background-image.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
+    padding-top: 56px;
+    height: 100%;
+    background: url('https://www.itl.cat/pngfile/big/157-1572191_hd-wallpapers-for-website-background-cool-background-image.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
 }
+
 .col-25 {
-  -ms-flex: 25%; /* IE10 */
-  flex: 25%;
+    -ms-flex: 25%; /* IE10 */
+    flex: 25%;
 
 }
+
 span.price {
-  float: right;
-  color: gray;
+    float: right;
+    color: gray;
 }
+
 @media (max-width: 800px) {
-  .row {
-    flex-direction: column-reverse;
-  }
-  .col-25 {
-    margin-bottom: 20px;
-  }
+    .row {
+        flex-direction: column-reverse;
+    }
+
+    .col-25 {
+        margin-bottom: 20px;
+    }
 }
 
