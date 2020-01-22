@@ -1,4 +1,1 @@
 # onlineShop
-
-# TODO
--imageBigger
