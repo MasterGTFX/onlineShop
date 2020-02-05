@@ -3,6 +3,7 @@ OnlineShop site created with Django.
 
 # Example
 ![shop example](example.png?raw=true "Example")
+
 ## Technologies
 - Fetching products, categories from database
 - Displaying products, categories, sort products by categories
